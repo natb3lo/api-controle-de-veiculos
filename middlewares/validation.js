@@ -1,4 +1,6 @@
-import { body, validationResult, Result } from "express-validator"
+import { body, validationResult, Result, param } from "express-validator"
+import mongoose from 'mongoose';
+const { Types } = mongoose;
 
 
 export const signupValidation = [
@@ -55,3 +57,8 @@ export const validateResult = async (req, res, next) => {
     next()
 }
 
+export const deleteUserValidation = [
+    param('userId')
+        .notEmpty()
+        .isMongoId().withMessage('Invalid object id')
+]

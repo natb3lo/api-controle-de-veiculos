@@ -42,4 +42,24 @@ export const insertUser = async (req, res, next) => {
 
 // update user...
 
-// deleteUser...
+
+export const deleteUser = async(req, res, next) => {
+
+    const {userId} = req.params
+    if(!userId){
+        return res.status(400).json({msg: 'userId is mandatory'})
+    }
+    try{
+        const user = await User.findOne({_id: userId})
+        if(!user){
+            return res.status(400).json({msg: 'user does not exist'})
+        }
+        await User.deleteOne(userExist)
+        return res.status(200).json({msg: 'user deleted'})
+    }
+    catch(err){
+        console.log(err)
+        return res.status(500).json({msg: 'Ooops...something went wrong...'})
+    }
+
+}

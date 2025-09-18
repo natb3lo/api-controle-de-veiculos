@@ -1,9 +1,11 @@
 import { Router } from "express";
-import { getUsers, insertUser } from "../controllers/userController.js";
+import { deleteUser, getUsers, insertUser } from "../controllers/userController.js";
+import { deleteUserValidation, validateResult } from "../middlewares/validation.js";
 
 const router = Router()
 
 router.get('/', getUsers)
 router.post('/', insertUser)
+router.delete('/:userId', deleteUserValidation, validateResult, deleteUser)
 
 export default router
