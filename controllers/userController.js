@@ -54,7 +54,7 @@ export const deleteUser = async(req, res, next) => {
         if(!user){
             return res.status(400).json({msg: 'user does not exist'})
         }
-        await User.deleteOne(userExist)
+        await User.deleteOne(user)
         return res.status(200).json({msg: 'user deleted'})
     }
     catch(err){
@@ -62,4 +62,32 @@ export const deleteUser = async(req, res, next) => {
         return res.status(500).json({msg: 'Ooops...something went wrong...'})
     }
 
+}
+
+export const getUserByBasicAuth = async(req, res, next) => {
+
+    const {email, password} = req.auth
+    if(!email || !password){
+        return res.status(404).json({msg: 'Email and Password fields must be provided'})
+    }
+    
+    try{
+        const user = await User.findOne({email: email}).select('+password')
+
+        if(!user){
+            return res.status(400).json({msg: 'Email or Password incorrects'})
+        }
+        const isPasswordCorrect = await bcrypt.compare(password, user.password)
+        if(!isPasswordCorrect){
+            return res.status(400).json({msg: 'Email or Password incorrects'})
+        }
+        req.user = user
+        req.sentFrom = '/auth/login'
+        next()
+    }
+    catch(err){
+        console.log(err)
+        return res.status(500).json({msg: 'Ooops...something went wrong...'})
+    }
+    
 }

@@ -3,6 +3,7 @@ import dbConnect from './database/init.js'
 import dotenv from "dotenv";
 import userRoutes from './routes/userRoutes.js'
 import authRoutes from './routes/authRoutes.js'
+import { getLoggedUser } from './middlewares/basicAuth.js';
 
 dotenv.config(); // Loads enviroment variables
 
@@ -20,13 +21,17 @@ app.listen(port, () => {
     console.log(`App listening on port ${port}`)
 })
 
-// Main route
-app.get('/', (req, res) => {
+// ROUTE --> /
+app.get('/', async (req, res) => {
     res.status(200).json({msg: 'Welcome to the API!!'})
 })
 
-//Auth routes
+app.get('/me', getLoggedUser, async (req, res) => {
+    res.status(200).json(req.auth)
+})
+
+//ROUTE --> /auth
 app.use('/auth', authRoutes)
 
-// User routes
+// ROUTE --> /users
 app.use('/users', userRoutes)
