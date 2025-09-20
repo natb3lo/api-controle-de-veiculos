@@ -45,7 +45,7 @@ cp .env.example .env
 ```
 docker compose up --build
 ```
-6. A API estará disponível em `http://localhost:3000`
+6. A API estará disponível em `http://localhost:3000`.
 Verifique os logs do container ou acesse a rota principal (GET /) para confirmar que está rodando.
 
 ## 📌 Rotas da API
