@@ -33,7 +33,7 @@ git clone https://github.com/natb3lo/api-controle-de-veiculos.git
 ```
 2. Vá para o diretório do projeto:
 ```
-cd api-controle-deveiculos
+cd api-controle-de-veiculos
 ```
 3. Crie seu arquivo de variáveis de ambiente a partir do `.env.example`
 ```
