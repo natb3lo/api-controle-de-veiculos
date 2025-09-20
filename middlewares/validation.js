@@ -2,7 +2,6 @@ import { body, validationResult, Result, param } from "express-validator"
 import mongoose from 'mongoose';
 const { Types } = mongoose;
 
-
 export const signupValidation = [
     body('name')
         .trim()

@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import { vehicleSchema } from "./vehicle.js";
 
 const userSchema = new mongoose.Schema(
     {
@@ -14,7 +13,10 @@ const userSchema = new mongoose.Schema(
             required: true,
             select: false
         },
-        vehicles: [vehicleSchema],
+        vehicles: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Vehicle"
+        }],
     }
 )
 

@@ -54,5 +54,4 @@ export const getLoggedUser = async (req, res, next) => {
     }
 
     //console.log(authHeader)
-
 }

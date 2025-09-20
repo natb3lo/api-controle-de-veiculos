@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import userRoutes from './routes/userRoutes.js'
 import authRoutes from './routes/authRoutes.js'
 import { getLoggedUser } from './middlewares/basicAuth.js';
+import vehicleRoutes from './routes/vehicleRoutes.js'
 
 dotenv.config(); // Loads enviroment variables
 
@@ -26,6 +27,7 @@ app.get('/', async (req, res) => {
     res.status(200).json({msg: 'Welcome to the API!!'})
 })
 
+//ROUTE --> /me
 app.get('/me', getLoggedUser, async (req, res) => {
     res.status(200).json(req.auth)
 })
@@ -35,3 +37,6 @@ app.use('/auth', authRoutes)
 
 // ROUTE --> /users
 app.use('/users', userRoutes)
+
+// ROUTE --> /vehicles
+app.use('/vehicles', vehicleRoutes)

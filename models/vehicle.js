@@ -5,7 +5,11 @@ export const vehicleSchema = new mongoose.Schema(
         model: String,
         brand: String,
         type: String,
-        price: Number
+        price: Number,
+        user: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User"
+        }
     }
 )
 

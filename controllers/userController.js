@@ -2,21 +2,27 @@ import { User } from "../models/user.js"
 import bcrypt from 'bcrypt'
 
 export const getUsers = async (req, res) => {
+    
     try{
-        const users = await User.find()
+        
+        const users = await User.find().populate('vehicles')
         if(users.length == 0){
             return res.status(200).json({msg: 'No users were registered yet'})
         }
+        
         return res.status(200).json(users)
     }
     catch(err){
         console.log(err)
         return res.status(500).json({ error: err.message });
+    
     }
 }
 
 export const insertUser = async (req, res, next) => {
+    
     const {name, email, password, confirmPasswor} = req.body  
+    
     try{
         const userExist = await User.findOne({email: email})
 
@@ -39,9 +45,6 @@ export const insertUser = async (req, res, next) => {
     }
     next()
 }
-
-// update user...
-
 
 export const deleteUser = async(req, res, next) => {
 
